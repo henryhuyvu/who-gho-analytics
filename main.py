@@ -1,6 +1,47 @@
+# %% Import Python packages
 import requests
+import psycopg
 
-#%% OData API URLs
+# %% Set up and interface with my local PostgreSQL server
+
+# Connect to an existing database
+with psycopg.connect(dbname="worlddata", user="postgres", password=input("Enter your password:")) as conn:
+    # Open a cursor to perform database operations
+    with conn.cursor() as cur:
+        # Execute a command: this creates a new table
+        cur.execute(
+            """
+            CREATE TABLE test (
+                id serial PRIMARY KEY,
+                num integer,
+                data text
+            )
+            """
+        )
+
+        # Pass data to fill a query placeholders and let Psycopg perform
+        # the correct conversion
+        cur.execute(
+            "INSERT INTO test (num, data) VALUES (%s, %s)",
+            (100,"abc'def")
+        )
+
+        # Query the database and obtain data as Python objects.
+        cur.execute(
+            "SELECT * FROM test"
+        )
+        cur.fetchone() # will return (1, 100, "abc'def")
+        # cur.fetchmany()
+        # cur.fetchall() # These two other commands will return a list
+        # of several records, or even iterate on the cursor
+        for record in cur:
+            print(record)
+
+        # Make the changes to the database persistent
+        conn.commit()
+
+
+# %% OData API URLs
 base_url = "https://ghoapi.azureedge.net/api"
 indicator_url = "https://ghoapi.azureedge.net/api/Indicator"
 
@@ -27,3 +68,5 @@ print("The data type here is:",type(indicator_json['value'][0]))
 print('\nThis raw data can be pulled out into key and value elements as:')
 for keys in indicator_json['value'][0]:
     print(keys,": ", indicator_json['value'][0][keys])
+
+# %%
