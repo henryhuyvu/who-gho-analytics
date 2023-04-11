@@ -58,7 +58,7 @@ with psycopg.connect(dbname=dbname, user=dbuser, password=getpass(prompt="Enter 
         )
         # Copy the list of existing tables from SQL into a Python object
         existingTables = []
-        print("The existing tables in the {} database are:".format(dbname))
+        print("\nThe existing tables in the {} database are:".format(dbname))
         for table in cur.fetchall():
             existingTables.append(table[0])
         print(existingTables)
@@ -117,12 +117,28 @@ with psycopg.connect(dbname=dbname, user=dbuser, password=getpass(prompt="Enter 
             print(cur.fetchmany(3))
 
 
-        # Pull data from psql table into Python variables
-        print('\n')
+        # Pull and show all indicators from psql table into Python variables
+        print('\nAll of the indicator codes are as follows:')
         cur.execute("SELECT indicatorcode FROM {}".format(existingTables[1]))
-        print(cur.fetchall())
+        allIndicatorCodes = cur.fetchall()
+        print('There are {} indicators, and their codes are as follows:'.format(len(allIndicatorCodes)))
+        print(allIndicatorCodes)
 
-        
+
+        # Select all indicators with "death" present within the indicator name
+        cur.execute(
+            """
+            SELECT * FROM indicators 
+            WHERE indicatorname 
+            LIKE '%death%' 
+            ORDER BY indicatorcode ASC
+            """
+            )
+        deathIndicators = cur.fetchall()
+        print('\nThere are {} death related indicators, and their codes are as follows:'.format(len(deathIndicators)))
+        print(deathIndicators)
+
+
         # @@ Terminate transactions in 1 of 2 ways:
         # (1) Commit any pending transaction to the database, OR
         conn.commit()
@@ -131,6 +147,12 @@ with psycopg.connect(dbname=dbname, user=dbuser, password=getpass(prompt="Enter 
 
 # Close the database connection
 conn.close()
-print("Successfully disconnected from the database, '{}'".format(dbname))
+print("\nSuccessfully disconnected from the database, '{}'".format(dbname))
+
+# %% Testing out some of the python objects
+print(len(allIndicatorCodes))
+print(allIndicatorCodes[0])
+print(allIndicatorCodes[0][0])
+print(allIndicatorCodes[0][0][0])
 
 # %%
