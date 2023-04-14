@@ -129,8 +129,8 @@ with psycopg.connect(dbname=dbname, user=dbuser, password=getpass(prompt="Enter 
         cur.execute(
             """
             SELECT * FROM indicators 
-            WHERE indicatorname 
-            LIKE '%death%' 
+            WHERE indicatorname LIKE '%death%' AND
+            indicatorcode NOT LIKE '%ARCHIVED%'
             ORDER BY indicatorcode ASC
             """
             )
@@ -155,4 +155,22 @@ print(allIndicatorCodes[0])
 print(allIndicatorCodes[0][0])
 print(allIndicatorCodes[0][0][0])
 
+# %% Python script to work with death related indicators
+print("There are {} death related indicators with the following code and names:".format(len(deathIndicators)))
+for i in range(len(deathIndicators)):
+    print("Code:",deathIndicators[i][0], "\nName:",deathIndicators[i][1])
+    print("\n")
+
+
+# %% Testing to see if fuzzy word matching can be used to group indicator codes
+
+from thefuzz import fuzz
+from thefuzz import process
+
+fuzz.ratio(deathIndicators[0][0],deathIndicators[1][0])
+
+# %%
+
+for i in range(len(deathIndicators)-1):
+    print(i,fuzz.ratio(deathIndicators[i][0],deathIndicators[i+1][0]),"Comparing: {} and {}".format(deathIndicators[i][0],deathIndicators[i+1][0]))
 # %%
