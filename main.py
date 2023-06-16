@@ -118,11 +118,10 @@ with psycopg.connect(dbname=dbname, user=dbuser, password=getpass(prompt="Enter 
 
 
         # Pull and show all indicators from psql table into Python variables
-        print('\nAll of the indicator codes are as follows:')
         cur.execute("SELECT indicatorcode FROM {}".format(existingTables[1]))
         allIndicatorCodes = cur.fetchall()
-        print('There are {} indicators, and their codes are as follows:'.format(len(allIndicatorCodes)))
-        print(allIndicatorCodes)
+        print('There are {} indicators'.format(len(allIndicatorCodes)))
+        # print(allIndicatorCodes)
 
 
         # Select all indicators with "death" present within the indicator name
@@ -135,8 +134,8 @@ with psycopg.connect(dbname=dbname, user=dbuser, password=getpass(prompt="Enter 
             """
             )
         deathIndicators = cur.fetchall()
-        print('\nThere are {} death related indicators, and their codes are as follows:'.format(len(deathIndicators)))
-        print(deathIndicators)
+        print('\nThere are {} death related indicators'.format(len(deathIndicators)))
+        # print(deathIndicators)
 
 
         # @@ Terminate transactions in 1 of 2 ways:
@@ -145,21 +144,21 @@ with psycopg.connect(dbname=dbname, user=dbuser, password=getpass(prompt="Enter 
         # (2) Roll back to the start of any pending transaction
         # conn.rollback()
 
-# Close the database connection
+# Close the cursor and database connection
+cur.close()
 conn.close()
-print("\nSuccessfully disconnected from the database, '{}'".format(dbname))
+print("\nSuccessfully disconnected from the database, '{}'\n".format(dbname))
 
 # %% Testing out some of the python objects
-print(len(allIndicatorCodes))
-print(allIndicatorCodes[0])
-print(allIndicatorCodes[0][0])
-print(allIndicatorCodes[0][0][0])
+# print(len(allIndicatorCodes))
+# print(allIndicatorCodes[0])
+# print(allIndicatorCodes[0][0])
+# print(allIndicatorCodes[0][0][0])
 
 # %% Python script to work with death related indicators
-print("There are {} death related indicators with the following code and names:".format(len(deathIndicators)))
-for i in range(len(deathIndicators)):
-    print("Code:",deathIndicators[i][0], "\nName:",deathIndicators[i][1])
-    print("\n")
+# print("There are {} death related indicators with the following code and names:".format(len(deathIndicators)))
+# for i in range(len(deathIndicators)):
+#     print("Code:",deathIndicators[i][0], "\tName:",deathIndicators[i][1])
 
 
 # %% Testing to see if fuzzy word matching can be used to group indicator codes
@@ -167,10 +166,23 @@ for i in range(len(deathIndicators)):
 from thefuzz import fuzz
 from thefuzz import process
 
-fuzz.ratio(deathIndicators[0][0],deathIndicators[1][0])
+# %%
+numberOfSets = 0
+for i in range(len(deathIndicators)-1):
+    if fuzz.ratio(deathIndicators[i][0],deathIndicators[i+1][0]) >= 50:
+        print(i,fuzz.ratio(deathIndicators[i][0],deathIndicators[i+1][0]),"Comparing: {} and {}".format(deathIndicators[i][0],deathIndicators[i+1][0]))
+    else:
+        numberOfSets += 1
+        print(i,fuzz.ratio(deathIndicators[i-numberOfSets][0],deathIndicators[i+1-numberOfSets][0]),"Comparing: {} and {}".format(deathIndicators[i][0],deathIndicators[i+1][0]))
+# %%
+
+deathIndicators[0][0]
 
 # %%
 
-for i in range(len(deathIndicators)-1):
-    print(i,fuzz.ratio(deathIndicators[i][0],deathIndicators[i+1][0]),"Comparing: {} and {}".format(deathIndicators[i][0],deathIndicators[i+1][0]))
+for i in range(len(deathIndicators[0][0])):
+    if deathIndicators[0][0][i] != "_":
+        print(deathIndicators[0][0][i])
+    else:
+        break
 # %%
