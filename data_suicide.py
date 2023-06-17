@@ -17,7 +17,7 @@ fullURL_Suicide = baseURL + linkURL_Suicide
 urlRequest_Suicide = requests.get(fullURL_Suicide)
 contents_Suicide = urlRequest_Suicide.text
 
-#%% Working with data
+#%% Data Manipulation
 
 json_Suicide = json.loads(contents_Suicide)
 
@@ -36,17 +36,24 @@ print(dataFrame_Suicide,'\n')
 
 columns = list(dataFrame_Suicide.columns)
 
-# Show unique entries under each column in the data set
-# print(f"There are {len(columns)} columns under the names: {str(columns)} \n")
-# for keys in columns:
-#     print(f"For the [{keys}] column, the count for each key is: \n {dataFrame_Suicide[keys].unique()} \n")
-
-#%% Modify column names
-
-# Dropping unnecessary columns
+# Dropping unnecessary columns and updating column names
 cleanDataFrame_Suicide = dataFrame_Suicide.drop(columns=["Id","IndicatorCode","TimeDimType","Dim1Type","Dim2Type","Dim2","Dim3Type","Dim3","DataSourceDimType","DataSourceDim","Comments","TimeDimensionBegin","TimeDimensionEnd","Date","TimeDimensionValue"])
+cleanDataFrame_Suicide = cleanDataFrame_Suicide.rename(columns={"Dim1":"Sex", "TimeDim":"Year"})
 print(cleanDataFrame_Suicide)
 
-# Updating column names
-cleanDataFrame_Suicide = cleanDataFrame_Suicide.rename(columns={"Dim1":"Sex"})
-print(cleanDataFrame_Suicide)
+#%% Prepping data for plotting
+spatialWorldBank = cleanDataFrame_Suicide.loc[cleanDataFrame_Suicide['SpatialDimType'] == 'WORLDBANKINCOMEGROUP']['SpatialDim'].unique()
+spatialRegions = cleanDataFrame_Suicide.loc[cleanDataFrame_Suicide['SpatialDimType'] == 'REGION']['SpatialDim'].unique()
+spatialCountries = cleanDataFrame_Suicide.loc[cleanDataFrame_Suicide['SpatialDimType'] == 'COUNTRY']['SpatialDim'].unique()
+
+# Dataframe for AFG Males
+print(cleanDataFrame_Suicide.loc[
+    (cleanDataFrame_Suicide['SpatialDim'] == spatialCountries[0]) &
+    (cleanDataFrame_Suicide['Sex'] == "MLE")
+    ].sort_values(by=["Year"]))
+
+# Dataframe for AFG Females
+print(cleanDataFrame_Suicide.loc[
+    (cleanDataFrame_Suicide['SpatialDim'] == spatialCountries[0]) &
+    (cleanDataFrame_Suicide['Sex'] == "MLE")
+    ].sort_values(by=["Year"]))
