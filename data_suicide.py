@@ -43,9 +43,9 @@ cleanDataFrame_Suicide = cleanDataFrame_Suicide.rename(columns={"Dim1":"Sex", "T
 print(cleanDataFrame_Suicide)
 
 #%% Prepping data for plotting
-spatialWorldBank = cleanDataFrame_Suicide.loc[cleanDataFrame_Suicide['SpatialDimType'] == 'WORLDBANKINCOMEGROUP']['SpatialDim'].unique()
-spatialRegions = cleanDataFrame_Suicide.loc[cleanDataFrame_Suicide['SpatialDimType'] == 'REGION']['SpatialDim'].unique()
-spatialCountries = cleanDataFrame_Suicide.loc[cleanDataFrame_Suicide['SpatialDimType'] == 'COUNTRY']['SpatialDim'].unique()
+spatialWorldBank = list(cleanDataFrame_Suicide.loc[cleanDataFrame_Suicide['SpatialDimType'] == 'WORLDBANKINCOMEGROUP']['SpatialDim'].unique())
+spatialRegions = list(cleanDataFrame_Suicide.loc[cleanDataFrame_Suicide['SpatialDimType'] == 'REGION']['SpatialDim'].unique())
+spatialCountries = list(cleanDataFrame_Suicide.loc[cleanDataFrame_Suicide['SpatialDimType'] == 'COUNTRY']['SpatialDim'].unique())
 
 
 # Male and Female comparisons 
@@ -65,14 +65,22 @@ print(cleanDataFrame_Suicide.loc[
 # Global comparisons
 # Dataframe for AFG Mixed Sex
 
-AFG_MixedSex = cleanDataFrame_Suicide.loc[
+MixedSex_AFG = cleanDataFrame_Suicide.loc[
     (cleanDataFrame_Suicide['SpatialDim'] == spatialCountries[0]) &
     (cleanDataFrame_Suicide['Sex'] == "BTSX")
     ].sort_values(by=["Year"])
 
-AFG_MixedSex.plot(y="NumericValue",x="Year")
-plt.show()
+ax = MixedSex_AFG.plot(y="NumericValue",x="Year")
 
+MixedSex_2 = cleanDataFrame_Suicide.loc[
+    (cleanDataFrame_Suicide['SpatialDim'] == spatialCountries[1]) &
+    (cleanDataFrame_Suicide['Sex'] == "BTSX")
+    ].sort_values(by=["Year"])
+
+MixedSex_2.plot(ax=ax, y="NumericValue",x="Year")
+
+plt.legend(spatialCountries[:2])
+plt.show()
 
 # print(cleanDataFrame_Suicide.loc[
 #     (cleanDataFrame_Suicide['SpatialDim'] == spatialCountries[0]) &
