@@ -3,6 +3,7 @@
 import requests
 import json
 import pandas as pd
+import matplotlib.pyplot as plt
 
 #%% URLs
 
@@ -46,6 +47,8 @@ spatialWorldBank = cleanDataFrame_Suicide.loc[cleanDataFrame_Suicide['SpatialDim
 spatialRegions = cleanDataFrame_Suicide.loc[cleanDataFrame_Suicide['SpatialDimType'] == 'REGION']['SpatialDim'].unique()
 spatialCountries = cleanDataFrame_Suicide.loc[cleanDataFrame_Suicide['SpatialDimType'] == 'COUNTRY']['SpatialDim'].unique()
 
+
+# Male and Female comparisons 
 # Dataframe for AFG Males
 print(cleanDataFrame_Suicide.loc[
     (cleanDataFrame_Suicide['SpatialDim'] == spatialCountries[0]) &
@@ -55,5 +58,36 @@ print(cleanDataFrame_Suicide.loc[
 # Dataframe for AFG Females
 print(cleanDataFrame_Suicide.loc[
     (cleanDataFrame_Suicide['SpatialDim'] == spatialCountries[0]) &
-    (cleanDataFrame_Suicide['Sex'] == "MLE")
+    (cleanDataFrame_Suicide['Sex'] == "FMLE")
     ].sort_values(by=["Year"]))
+
+
+# Global comparisons
+# Dataframe for AFG Mixed Sex
+
+AFG_MixedSex = cleanDataFrame_Suicide.loc[
+    (cleanDataFrame_Suicide['SpatialDim'] == spatialCountries[0]) &
+    (cleanDataFrame_Suicide['Sex'] == "BTSX")
+    ].sort_values(by=["Year"])
+
+AFG_MixedSex.plot(y="NumericValue",x="Year")
+plt.show()
+
+
+# print(cleanDataFrame_Suicide.loc[
+#     (cleanDataFrame_Suicide['SpatialDim'] == spatialCountries[0]) &
+#     (cleanDataFrame_Suicide['Sex'] == "BTSX")
+#     ].sort_values(by=["Year"]))
+
+# cleanDataFrame_Suicide.loc[
+#     (cleanDataFrame_Suicide['SpatialDim'] == spatialCountries[0]) &
+#     (cleanDataFrame_Suicide['Sex'] == "BTSX")
+#     ].sort_values(by=["Year"]).plot(y="NumericValue",x="Year")
+
+# cleanDataFrame_Suicide.loc[
+#     (cleanDataFrame_Suicide['SpatialDim'] == spatialCountries[0]) &
+#     (cleanDataFrame_Suicide['Sex'] == "BTSX")
+#     ].plot.scatter(y="NumericValue",x="Year")
+# # cleanDataFrame_Suicide.plot(y="NumericValue",x="Year","ro")
+# # plt.plot(x,y,'ro')
+# plt.show()
