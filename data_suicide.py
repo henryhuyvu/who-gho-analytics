@@ -33,9 +33,8 @@ dataFrame_Suicide = pd.DataFrame(data_suicide)
 
 
 # View data
-print(dataFrame_Suicide,'\n')
-
 columns = list(dataFrame_Suicide.columns)
+print(columns)
 
 # Dropping unnecessary columns and updating column names
 cleanDataFrame_Suicide = dataFrame_Suicide.drop(columns=["Id","IndicatorCode","TimeDimType","Dim1Type","Dim2Type","Dim2","Dim3Type","Dim3","DataSourceDimType","DataSourceDim","Comments","TimeDimensionBegin","TimeDimensionEnd","Date","TimeDimensionValue"])
@@ -47,55 +46,52 @@ spatialWorldBank = list(cleanDataFrame_Suicide.loc[cleanDataFrame_Suicide['Spati
 spatialRegions = list(cleanDataFrame_Suicide.loc[cleanDataFrame_Suicide['SpatialDimType'] == 'REGION']['SpatialDim'].unique())
 spatialCountries = list(cleanDataFrame_Suicide.loc[cleanDataFrame_Suicide['SpatialDimType'] == 'COUNTRY']['SpatialDim'].unique())
 
-
-# Male and Female comparisons 
-# Dataframe for AFG Males
-print(cleanDataFrame_Suicide.loc[
-    (cleanDataFrame_Suicide['SpatialDim'] == spatialCountries[0]) &
-    (cleanDataFrame_Suicide['Sex'] == "MLE")
-    ].sort_values(by=["Year"]))
-
-# Dataframe for AFG Females
-print(cleanDataFrame_Suicide.loc[
-    (cleanDataFrame_Suicide['SpatialDim'] == spatialCountries[0]) &
-    (cleanDataFrame_Suicide['Sex'] == "FMLE")
-    ].sort_values(by=["Year"]))
-
-
+def extractCountryData(countryCode,sex):    
+    countryData.append(cleanDataFrame_Suicide.loc[
+        (cleanDataFrame_Suicide['SpatialDim'] == countryCode) & 
+        (cleanDataFrame_Suicide['Sex'] == sex)
+        ].sort_values(by=["Year"]))
+    
+def extractRegionData(countryCode,sex):    
+    regionData.append(cleanDataFrame_Suicide.loc[
+        (cleanDataFrame_Suicide['SpatialDim'] == countryCode) & 
+        (cleanDataFrame_Suicide['Sex'] == sex)
+        ].sort_values(by=["Year"]))
+    
 # Global comparisons
-# Dataframe for AFG Mixed Sex
+# Collect datasets for all countries and mixed Sex
+countryData = []
+for i in range(len(spatialCountries)):
+    extractCountryData(spatialCountries[i],"BTSX")
 
-MixedSex_AFG = cleanDataFrame_Suicide.loc[
-    (cleanDataFrame_Suicide['SpatialDim'] == spatialCountries[0]) &
-    (cleanDataFrame_Suicide['Sex'] == "BTSX")
-    ].sort_values(by=["Year"])
+# Plot all the data
+for i in range(len(spatialCountries)):
+    if i == 0:
+        ax = countryData[i].plot(y="NumericValue",x="Year")
+    else:
+        countryData[i].plot(ax=ax,y="NumericValue",x="Year")
 
-ax = MixedSex_AFG.plot(y="NumericValue",x="Year")
-
-MixedSex_2 = cleanDataFrame_Suicide.loc[
-    (cleanDataFrame_Suicide['SpatialDim'] == spatialCountries[1]) &
-    (cleanDataFrame_Suicide['Sex'] == "BTSX")
-    ].sort_values(by=["Year"])
-
-MixedSex_2.plot(ax=ax, y="NumericValue",x="Year")
-
-plt.legend(spatialCountries[:2])
+plt.title("Age-standardized suicide rates")
+plt.xlabel("Year")
+plt.ylabel("Suicide rate per 100,000 population")
+plt.xlim([2000,2019])
+plt.legend(spatialCountries, bbox_to_anchor=(1, 1.), loc='best', prop={'size': 4}, ncol=4)
 plt.show()
 
-# print(cleanDataFrame_Suicide.loc[
-#     (cleanDataFrame_Suicide['SpatialDim'] == spatialCountries[0]) &
-#     (cleanDataFrame_Suicide['Sex'] == "BTSX")
-#     ].sort_values(by=["Year"]))
+regionData = []
+for i in range(len(spatialRegions)):
+    extractRegionData(spatialRegions[i],"BTSX")
 
-# cleanDataFrame_Suicide.loc[
-#     (cleanDataFrame_Suicide['SpatialDim'] == spatialCountries[0]) &
-#     (cleanDataFrame_Suicide['Sex'] == "BTSX")
-#     ].sort_values(by=["Year"]).plot(y="NumericValue",x="Year")
+# Plot all the data
+for i in range(len(spatialRegions)):
+    if i == 0:
+        ax = regionData[i].plot(y="NumericValue",x="Year")
+    else:
+        regionData[i].plot(ax=ax,y="NumericValue",x="Year")
 
-# cleanDataFrame_Suicide.loc[
-#     (cleanDataFrame_Suicide['SpatialDim'] == spatialCountries[0]) &
-#     (cleanDataFrame_Suicide['Sex'] == "BTSX")
-#     ].plot.scatter(y="NumericValue",x="Year")
-# # cleanDataFrame_Suicide.plot(y="NumericValue",x="Year","ro")
-# # plt.plot(x,y,'ro')
-# plt.show()
+plt.title("Age-standardized suicide rates")
+plt.xlabel("Year")
+plt.ylabel("Suicide rate per 100,000 population")
+plt.xlim([2000,2019])
+plt.legend(spatialRegions, bbox_to_anchor=(1, 1.), loc='best', prop={'size': 4}, ncol=4)
+plt.show()
