@@ -58,8 +58,8 @@ def extractRegionData(countryCode,sex):
         (cleanDataFrame_Suicide['Sex'] == sex)
         ].sort_values(by=["Year"]))
     
-# Global comparisons
-# Collect datasets for all countries and mixed Sex
+
+#%% Country Data
 countryData = []
 for i in range(len(spatialCountries)):
     extractCountryData(spatialCountries[i],"BTSX")
@@ -71,27 +71,44 @@ for i in range(len(spatialCountries)):
     else:
         countryData[i].plot(ax=ax,y="NumericValue",x="Year")
 
-plt.title("Age-standardized suicide rates")
-plt.xlabel("Year")
-plt.ylabel("Suicide rate per 100,000 population")
-plt.xlim([2000,2019])
-plt.legend(spatialCountries, bbox_to_anchor=(1, 1.), loc='best', prop={'size': 4}, ncol=4)
-plt.show()
+# plt.title("Age-standardized suicide rates by Country")
+# plt.xlabel("Year")
+# plt.ylabel("Suicide rate per 100,000 population")
+# plt.xlim([2000,2019])
+# plt.legend(spatialCountries, bbox_to_anchor=(1, 1.), loc='best', prop={'size': 4}, ncol=4)
+# plt.show(block=False)
 
-regionData = []
-for i in range(len(spatialRegions)):
-    extractRegionData(spatialRegions[i],"BTSX")
+# Looking at the highest rates amongst all of the countries
+print(round(countryData[1].iloc[-1,-3], 1))
 
-# Plot all the data
-for i in range(len(spatialRegions)):
-    if i == 0:
-        ax = regionData[i].plot(y="NumericValue",x="Year")
-    else:
-        regionData[i].plot(ax=ax,y="NumericValue",x="Year")
+print(countryData[1])
+print(spatialCountries)
+valueColumnIndex = -3
+latestDataRowIndex = -1
+recentSuicideRates = []
+for i in range(len(countryData)):
+    recentSuicideRates.append({f"{spatialCountries[i]}":f"{round(countryData[i].iloc[latestDataRowIndex,valueColumnIndex], 1)}"})
+print(type(recentSuicideRates))
+print(len(recentSuicideRates))
+print(recentSuicideRates[0])
+print(max(recentSuicideRates,key=recentSuicideRates.get))
+# print(spatialCountries[i],": ",round(countryData[i].iloc[latestDataRowIndex,valueColumnIndex], 1))
 
-plt.title("Age-standardized suicide rates")
-plt.xlabel("Year")
-plt.ylabel("Suicide rate per 100,000 population")
-plt.xlim([2000,2019])
-plt.legend(spatialRegions, bbox_to_anchor=(1, 1.), loc='best', prop={'size': 4}, ncol=4)
-plt.show()
+#%% Regional Data 
+# regionData = []
+# for i in range(len(spatialRegions)):
+#     extractRegionData(spatialRegions[i],"BTSX")
+
+# # Plot all the data
+# for i in range(len(spatialRegions)):
+#     if i == 0:
+#         ax = regionData[i].plot(y="NumericValue",x="Year")
+#     else:
+#         regionData[i].plot(ax=ax,y="NumericValue",x="Year")
+
+# plt.title("Age-standardized suicide rates by Region")
+# plt.xlabel("Year")
+# plt.ylabel("Suicide rate per 100,000 population")
+# plt.xlim([2000,2019])
+# plt.legend(spatialRegions, bbox_to_anchor=(1, 1.), loc='best', prop={'size': 8}, ncol=4)
+# plt.show()
