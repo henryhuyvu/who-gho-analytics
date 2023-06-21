@@ -1,0 +1,249 @@
+ABW_Aruba
+AFG_Afghanistan
+AGO_Angola
+AIA_Anguilla
+ALA_Åland Islands
+ALB_Albania
+AND_Andorra
+ARE_United Arab Emirates
+ARG_Argentina
+ARM_Armenia
+ASM_American Samoa
+ATA_Antarctica
+ATF_French Southern Territories
+ATG_Antigua and Barbuda
+AUS_Australia
+AUT_Austria
+AZE_Azerbaijan
+BDI_Burundi
+BEL_Belgium
+BEN_Benin
+BES_Bonaire, Sint Eustatius and Saba
+BFA_Burkina Faso
+BGD_Bangladesh
+BGR_Bulgaria
+BHR_Bahrain
+BHS_Bahamas
+BIH_Bosnia and Herzegovina
+BLM_Saint Barthélemy
+BLR_Belarus
+BLZ_Belize
+BMU_Bermuda
+BOL_Bolivia (Plurinational State of)
+BRA_Brazil
+BRB_Barbados
+BRN_Brunei Darussalam
+BTN_Bhutan
+BVT_Bouvet Island
+BWA_Botswana
+CAF_Central African Republic
+CAN_Canada
+CCK_Cocos (Keeling) Islands
+CHE_Switzerland
+CHL_Chile
+CHN_China
+CIV_Côte d'Ivoire
+CMR_Cameroon
+COD_Congo, Democratic Republic of the
+COG_Congo
+COK_Cook Islands
+COL_Colombia
+COM_Comoros
+CPV_Cabo Verde
+CRI_Costa Rica
+CUB_Cuba
+CUW_Curaçao
+CXR_Christmas Island
+CYM_Cayman Islands
+CYP_Cyprus
+CZE_Czechia
+DEU_Germany
+DJI_Djibouti
+DMA_Dominica
+DNK_Denmark
+DOM_Dominican Republic
+DZA_Algeria
+ECU_Ecuador
+EGY_Egypt
+ERI_Eritrea
+ESH_Western Sahara
+ESP_Spain
+EST_Estonia
+ETH_Ethiopia
+FIN_Finland
+FJI_Fiji
+FLK_Falkland Islands (Malvinas)
+FRA_France
+FRO_Faroe Islands
+FSM_Micronesia (Federated States of)
+GAB_Gabon
+GBR_United Kingdom of Great Britain and Northern Ireland
+GEO_Georgia
+GGY_Guernsey
+GHA_Ghana
+GIB_Gibraltar
+GIN_Guinea
+GLP_Guadeloupe
+GMB_Gambia
+GNB_Guinea-Bissau
+GNQ_Equatorial Guinea
+GRC_Greece
+GRD_Grenada
+GRL_Greenland
+GTM_Guatemala
+GUF_French Guiana
+GUM_Guam
+GUY_Guyana
+HKG_Hong Kong
+HMD_Heard Island and McDonald Islands
+HND_Honduras
+HRV_Croatia
+HTI_Haiti
+HUN_Hungary
+IDN_Indonesia
+IMN_Isle of Man
+IND_India
+IOT_British Indian Ocean Territory
+IRL_Ireland
+IRN_Iran (Islamic Republic of)
+IRQ_Iraq
+ISL_Iceland
+ISR_Israel
+ITA_Italy
+JAM_Jamaica
+JEY_Jersey
+JOR_Jordan
+JPN_Japan
+KAZ_Kazakhstan
+KEN_Kenya
+KGZ_Kyrgyzstan
+KHM_Cambodia
+KIR_Kiribati
+KNA_Saint Kitts and Nevis
+KOR_Korea, Republic of
+KWT_Kuwait
+LAO_Lao People's Democratic Republic
+LBN_Lebanon
+LBR_Liberia
+LBY_Libya
+LCA_Saint Lucia
+LIE_Liechtenstein
+LKA_Sri Lanka
+LSO_Lesotho
+LTU_Lithuania
+LUX_Luxembourg
+LVA_Latvia
+MAC_Macao
+MAF_Saint Martin (French part)
+MAR_Morocco
+MCO_Monaco
+MDA_Moldova, Republic of
+MDG_Madagascar
+MDV_Maldives
+MEX_Mexico
+MHL_Marshall Islands
+MKD_North Macedonia
+MLI_Mali
+MLT_Malta
+MMR_Myanmar
+MNE_Montenegro
+MNG_Mongolia
+MNP_Northern Mariana Islands
+MOZ_Mozambique
+MRT_Mauritania
+MSR_Montserrat
+MTQ_Martinique
+MUS_Mauritius
+MWI_Malawi
+MYS_Malaysia
+MYT_Mayotte
+NAM_Namibia
+NCL_New Caledonia
+NER_Niger
+NFK_Norfolk Island
+NGA_Nigeria
+NIC_Nicaragua
+NIU_Niue
+NLD_Netherlands, Kingdom of the
+NOR_Norway
+NPL_Nepal
+NRU_Nauru
+NZL_New Zealand
+OMN_Oman
+PAK_Pakistan
+PAN_Panama
+PCN_Pitcairn
+PER_Peru
+PHL_Philippines
+PLW_Palau
+PNG_Papua New Guinea
+POL_Poland
+PRI_Puerto Rico
+PRK_Korea (Democratic People's Republic of)
+PRT_Portugal
+PRY_Paraguay
+PSE_Palestine, State of
+PYF_French Polynesia
+QAT_Qatar
+REU_Réunion
+ROU_Romania
+RUS_Russian Federation
+RWA_Rwanda
+SAU_Saudi Arabia
+SDN_Sudan
+SEN_Senegal
+SGP_Singapore
+SGS_South Georgia and the South Sandwich Islands
+SHN_Saint Helena, Ascension and Tristan da Cunha
+SJM_Svalbard and Jan Mayen
+SLB_Solomon Islands
+SLE_Sierra Leone
+SLV_El Salvador
+SMR_San Marino
+SOM_Somalia
+SPM_Saint Pierre and Miquelon
+SRB_Serbia
+SSD_South Sudan
+STP_Sao Tome and Principe
+SUR_Suriname
+SVK_Slovakia
+SVN_Slovenia
+SWE_Sweden
+SWZ_Eswatini
+SXM_Sint Maarten (Dutch part)
+SYC_Seychelles
+SYR_Syrian Arab Republic
+TCA_Turks and Caicos Islands
+TCD_Chad
+TGO_Togo
+THA_Thailand
+TJK_Tajikistan
+TKL_Tokelau
+TKM_Turkmenistan
+TLS_Timor-Leste
+TON_Tonga
+TTO_Trinidad and Tobago
+TUN_Tunisia
+TUR_Türkiye
+TUV_Tuvalu
+TWN_Taiwan, Province of China
+TZA_Tanzania, United Republic of
+UGA_Uganda
+UKR_Ukraine
+UMI_United States Minor Outlying Islands
+URY_Uruguay
+USA_United States of America
+UZB_Uzbekistan
+VAT_Holy See
+VCT_Saint Vincent and the Grenadines
+VEN_Venezuela (Bolivarian Republic of)
+VGB_Virgin Islands (British)
+VIR_Virgin Islands (U.S.)
+VNM_Viet Nam
+VUT_Vanuatu
+WLF_Wallis and Futuna
+WSM_Samoa
+YEM_Yemen
+ZAF_South Africa
+ZMB_Zambia
+ZWE_Zimbabwe
