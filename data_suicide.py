@@ -62,10 +62,13 @@ for i in range(len(spatialRegions)):
     else:
         regionData[i].plot(ax=ax,y="NumericValue",x="Year")
 
-plt.title("Age-standardized suicide rates by region")
-plt.xlabel("Year")
-plt.ylabel("Suicide rate per 100,000 population")
-plt.xlim([2000,2019])
+xlabel = "Year"
+ylabel = "Suicide rates per 100,000 population"
+xlimits = [2000,2019]
+plt.title("Age-standardized suicide rates for both sexes by region")
+plt.xlabel(xlabel)
+plt.ylabel(ylabel)
+plt.xlim(xlimits)
 plt.legend(spatialRegions, bbox_to_anchor=(1, 1.), loc='best', prop={'size': 8}, ncol=4)
 plt.grid()
 plt.show(block=False)
@@ -82,10 +85,10 @@ for i in range(len(spatialCountries)):
     else:
         countryData[i].plot(ax=ax,y="NumericValue",x="Year",legend=None, linewidth=0.8)
 
-plt.title(f"Age-standardized suicide rates for all {len(spatialCountries)} countries")
-plt.xlabel("Year")
-plt.ylabel("Suicide rate per 100,000 population")
-plt.xlim([2000,2019])
+plt.title(f"Age-standardized suicide rates for both sexes in all {len(spatialCountries)} countries")
+plt.xlabel(xlabel)
+plt.ylabel(ylabel)
+plt.xlim(xlimits)
 # plt.legend(spatialCountries, loc='best', bbox_to_anchor=(1,1), prop={'size': 4}, ncol=4)
 plt.locator_params(axis="x", integer=True, tight=True)
 plt.tight_layout()
@@ -101,7 +104,7 @@ for i in range(len(countryData)):
     recentSuicideRates.update({f"{spatialCountries[i]}":round(countryData[i].iloc[latestDataRowIndex,valueColumnIndex], 3)})
 
 sortedRecentRates = sorted(list(recentSuicideRates.values()))
-numberOfTopCountries = 10
+numberOfTopCountries = 15
 topRates = []
 topCountries = []
 for n in range(numberOfTopCountries):
@@ -118,19 +121,18 @@ for i in range(numberOfTopCountries):
     else:
         topCountryData[i].plot(ax=ax,y="NumericValue",x="Year")
 
-plt.title(f"Change in the {numberOfTopCountries} highest 2019 age-standardized suicide rates")
-plt.xlabel("Year")
-plt.ylabel("Suicide rate per 100,000 population")
-plt.xlim([2000,2019])
+plt.title(f"Change in the {numberOfTopCountries} highest 2019 age-standardized suicide rates for both sexes")
+plt.xlabel(xlabel)
+plt.ylabel(ylabel)
+plt.xlim(xlimits)
 plt.legend(topCountries,loc='best', prop={'size': 6}, ncol=4)
 plt.grid()
 plt.locator_params(axis="x", integer=True, tight=True)
 plt.show(block=False)
 
-#%% Lowest rates for N countries amongst all countries
 
-
-numberOfBottomCountries = 10
+# Lowest rates for N countries amongst all countries
+numberOfBottomCountries = 15
 bottomRates = []
 bottomCountries = []
 for n in range(numberOfBottomCountries):
@@ -147,12 +149,14 @@ for i in range(numberOfBottomCountries):
     else:
         bottomCountryData[i].plot(ax=ax,y="NumericValue",x="Year")
 
-plt.title(f"Change in the {numberOfBottomCountries} lowest 2019 age-standardized suicide rates")
-plt.xlabel("Year")
-plt.ylabel("Suicide rate per 100,000 population")
-plt.xlim([2000,2019])
+plt.title(f"Change in the {numberOfBottomCountries} lowest 2019 age-standardized suicide rates for both sexes")
+plt.xlabel(xlabel)
+plt.ylabel(ylabel)
+plt.xlim(xlimits)
 plt.ylim([0,15])
 plt.legend(bottomCountries,loc='best', prop={'size': 6}, ncol=4)
 plt.grid()
 plt.locator_params(axis="x", integer=True, tight=True)
 plt.show()
+
+# %%
