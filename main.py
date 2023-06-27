@@ -167,22 +167,34 @@ from thefuzz import fuzz
 from thefuzz import process
 
 # %%
-numberOfSets = 0
+
+from termcolor import colored
+
+print("There are",colored(len(deathIndicators),'red'), 'elements in this list related to death')
+numberOfCodeTypes = 0
+uniqueCodes = []
+uniqueCodeStart = 0
 for i in range(len(deathIndicators)-1):
-    if fuzz.ratio(deathIndicators[i][0],deathIndicators[i+1][0]) >= 50:
-        print(i,fuzz.ratio(deathIndicators[i][0],deathIndicators[i+1][0]),"Comparing: {} and {}".format(deathIndicators[i][0],deathIndicators[i+1][0]))
+    if fuzz.ratio(deathIndicators[i][0],deathIndicators[i+1][0]) >= 35:
+        print("Index:",i,', Ratio:',fuzz.ratio(deathIndicators[i][0],deathIndicators[i+1][0]),"- for {} \ {}".format(deathIndicators[i][0],deathIndicators[i+1][0]))
     else:
-        numberOfSets += 1
-        print(i,fuzz.ratio(deathIndicators[i-numberOfSets][0],deathIndicators[i+1-numberOfSets][0]),"Comparing: {} and {}".format(deathIndicators[i][0],deathIndicators[i+1][0]))
-# %%
+        uniqueCodes.append([uniqueCodeStart,i])
+        uniqueCodeStart = i + 1
+        print("Index:",i,', Ratio:',fuzz.ratio(deathIndicators[i][0],deathIndicators[i+1][0]),"- {} \ {} {}".format(deathIndicators[i][0],deathIndicators[i+1][0],colored("not closely related",'red')))
+        numberOfCodeTypes += 1
 
-deathIndicators[0][0]
+#%% Display similar codes together
+print('Code ranges:',uniqueCodes)
+print('Number of distinct code types:',numberOfCodeTypes)
 
-# %%
-
-for i in range(len(deathIndicators[0][0])):
-    if deathIndicators[0][0][i] != "_":
-        print(deathIndicators[0][0][i])
+for i in range(len(uniqueCodes)):
+    minRange = uniqueCodes[i][0]
+    maxRange = uniqueCodes[i][1]
+    print(colored(f"For set {i}",'green'),':')
+    if minRange == maxRange:
+        print(deathIndicators[minRange])
     else:
-        break
+        for elements in range(minRange,maxRange):
+            print(deathIndicators[elements])
+
 # %%
